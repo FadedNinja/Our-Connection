@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Connection</title>
+    <style>
+        :root {
+            --color-primary: #667eea;
+            --color-primary-dark: #764ba2;
+            --color-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --color-surface: #ffffff;
+            --color-text: #333;
+            --color-light: #f8f9ff;
+            --color-accent: #e74c3c;
+            --color-success: #2ecc71;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: var(--color-bg);
+            min-height: 100vh;
+            color: var(--color-text);
+            padding: 20px;
+        }
+
+        .app-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+            animation: slideDown 0.6s ease-out;
+        }
+
+        header h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .tab-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .tab-btn.active {
+            background: white;
+            color: var(--color-primary);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .card {
+            background: var(--color-surface);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+        }
+
+        .card h2 {
+            color: var(--color-primary);
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--color-text);
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-danger {
+            background: #e74c3c;
+            color: white;
+            padding: 8px 12px;
+            font-size: 12px;
+        }
+
+        .btn-danger:hover {
+            background: #c0392b;
+        }
+
+        .item-card {
+            background: var(--color-light);
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .item-card:hover {
+            border-color: var(--color-primary);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 10px;
+        }
+
+        .item-title {
+            font-weight: 600;
+            color: var(--color-primary);
+            font-size: 16px;
+        }
+
+        .item-date {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .item-text {
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+        }
+
+        .empty-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .quote-box {
+            background: var(--color-bg);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 18px;
+            font-style: italic;
+            margin: 20px 0;
+            line-height: 1.8;
+        }
+
+        .btn-quote {
+            background: rgba(255, 255, 255, 0.3);
+            color: white;
+            border: 2px solid white;
+            margin-top: 20px;
+        }
+
+        .btn-quote:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .emoji-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .emoji-btn {
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            background: var(--color-surface);
+            border-radius: 8px;
+            font-size: 24px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .emoji-btn.selected {
+            border-color: var(--color-primary);
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .emoji-btn:hover {
+            transform: scale(1.15);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .stat-box {
+            background: var(--color-bg);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+
+        .music-player {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: white;
+            border-radius: 50%;
+            width: 70px;
+            height: 70px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .music-player:hover {
+            transform: scale(1.1);
+        }
+
+        .music-player.playing {
+            background: var(--color-bg);
+            color: white;
+        }
+
+        .music-icon {
+            font-size: 32px;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 28px;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+            .tab-btn {
+                padding: 10px 16px;
+                font-size: 12px;
+            }
+
+            .music-player {
+                width: 60px;
+                height: 60px;
+                bottom: 20px;
+                right: 20px;
+            }
+
+            .music-icon {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <audio id="bgMusic" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="music-player" id="musicPlayer" onclick="toggleMusic()">
+        <div class="music-icon" id="musicIcon">🎵</div>
+    </div>
+
+    <div class="app-container">
+        <header>
+            <h1>💕 Our Connection</h1>
+            <p>A place to celebrate us, remember together, and grow closer</p>
+        </header>
+
+        <div class="nav-tabs">
+            <button class="tab-btn active" onclick="switchTab(event, 'apology')">💌 Apology</button>
+            <button class="tab-btn" onclick="switchTab(event, 'memories')">📸 Memories</button>
+            <button class="tab-btn" onclick="switchTab(event, 'dates')">📅 Dates</button>
+            <button class="tab-btn" onclick="switchTab(event, 'conversations')">💬 Conversations</button>
+            <button class="tab-btn" onclick="switchTab(event, 'dashboard')">📊 Us</button>
+        </div>
+
+        <!-- Apology Tab -->
+        <div id="apology" class="tab-content active">
+            <div class="card" style="text-align: center;">
+                <div style="font-size: 48px; margin-bottom: 20px; animation: float 3s ease-in-out infinite;">💔 → 💕</div>
+                <h2>I'm Truly Sorry</h2>
+                
+                <div style="text-align: left; line-height: 1.8; margin: 30px 0; font-size: 16px; font-style: italic;">
+                    <p style="margin-bottom: 15px;">I know I haven't been showing you how much you mean to me, and I'm truly sorry for that.</p>
+                    
+                    <p style="margin-bottom: 15px;">You deserve someone who shows up for you every single day. Someone who listens, who cares, who makes you feel loved and valued. I want to be that person.</p>
+                    
+                    <p style="margin-bottom: 15px;">I'm sorry for making you feel like I lost interest. The truth is, I care about you deeply. I just haven't been doing a good job of showing it, and that's on me.</p>
+                    
+                    <p style="margin-bottom: 15px;">I'm committed to changing this. To being more present with you, to listening better, to making you feel how special you really are to me.</p>
+                    
+                    <p>Thank you for telling me how you feel. Thank you for giving me a chance to do better.</p>
+                </div>
+
+                <div style="margin: 30px 0; font-size: 20px; color: var(--color-primary); font-weight: bold;">
+                    With all my heart,<br>
+                    <span style="font-size: 32px;">💕</span>
+                </div>
+
+                <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                    <button class="btn btn-primary" onclick="acceptApology()">I forgive you 💚</button>
+                    <button class="btn btn-primary" onclick="switchTab(null, 'conversations')" style="background: white; color: var(--color-primary); border: 2px solid var(--color-primary);">Let's talk 💬</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Memories Tab -->
+        <div id="memories" class="tab-content">
+            <div class="card">
+                <h2>📸 Add a Memory</h2>
+                
+                <div class="form-group">
+                    <label>Memory Title</label>
+                    <input type="text" id="memoryTitle" placeholder="e.g., First Kiss, That Rainy Day...">
+                </div>
+
+                <div class="form-group">
+                    <label>Date</label>
+                    <input type="date" id="memoryDate">
+                </div>
+
+                <div class="form-group">
+                    <label>Notes</label>
+                    <textarea id="memoryNote" placeholder="What makes this memory special?"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Pick an emoji 💭</label>
+                    <div class="emoji-grid" id="emojiPicker">
+                        <button class="emoji-btn" data-emoji="💫" onclick="selectEmoji('💫')">💫</button>
+                        <button class="emoji-btn" data-emoji="💕" onclick="selectEmoji('💕')">💕</button>
+                        <button class="emoji-btn" data-emoji="🌹" onclick="selectEmoji('🌹')">🌹</button>
+                        <button class="emoji-btn" data-emoji="🎁" onclick="selectEmoji('🎁')">🎁</button>
+                        <button class="emoji-btn" data-emoji="☕" onclick="selectEmoji('☕')">☕</button>
+                        <button class="emoji-btn" data-emoji="🎬" onclick="selectEmoji('🎬')">🎬</button>
+                        <button class="emoji-btn" data-emoji="🍕" onclick="selectEmoji('🍕')">🍕</button>
+                        <button class="emoji-btn" data-emoji="🌙" onclick="selectEmoji('🌙')">🌙</button>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary" onclick="addMemory()">💾 Save Memory</button>
+            </div>
+
+            <div class="card">
+                <h2>Your Memories Together</h2>
+                <div id="memoriesList"></div>
+            </div>
+        </div>
+
+        <!-- Dates Tab -->
+        <div id="dates" class="tab-content">
+            <div class="card">
+                <h2>📅 Plan a Date</h2>
+                
+                <div class="form-group">
+                    <label>Date Title</label>
+                    <input type="text" id="dateTitle" placeholder="e.g., Dinner at the Beach...">
+                </div>
+
+                <div class="form-group">
+                    <label>Date & Time</label>
+                    <input type="datetime-local" id="dateDateTime">
+                </div>
+
+                <div class="form-group">
+                    <label>Description & Plans</label>
+                    <textarea id="dateDescription" placeholder="What will we do? Why is it special?"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Category</label>
+                    <select id="dateCategory">
+                        <option value="casual">Casual Hangout</option>
+                        <option value="special">Special Occasion</option>
+                        <option value="adventure">Adventure</option>
+                        <option value="romantic">Romantic</option>
+                    </select>
+                </div>
+
+                <button class="btn btn-primary" onclick="addDate()">📅 Add to Plans</button>
+            </div>
+
+            <div class="card">
+                <h2>Your Date Plans</h2>
+                <div id="datesList"></div>
+            </div>
+        </div>
+
+        <!-- Conversations Tab -->
+        <div id="conversations" class="tab-content">
+            <div class="card">
+                <h2>💬 Deep Conversations</h2>
+                <p style="color: #666; margin-bottom: 20px;">Click to explore questions that help us understand each other better.</p>
+
+                <div id="conversationQuote" class="quote-box">
+                    <p>"What's something I did that made you smile recently?"</p>
+                    <button class="btn btn-quote" onclick="getRandomQuestion()">Next Question →</button>
+                </div>
+
+                <h3 style="margin: 30px 0 20px; color: var(--color-primary);">All Questions</h3>
+                <div id="conversationsList"></div>
+            </div>
+        </div>
+
+        <!-- Dashboard Tab -->
+        <div id="dashboard" class="tab-content">
+            <div class="card">
+                <h2>📊 Our Story in Numbers</h2>
+                
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <div class="stat-number" id="memoryCount">0</div>
+                        <div class="stat-label">Memories Saved</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number" id="dateCount">0</div>
+                        <div class="stat-label">Dates Planned</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">∞</div>
+                        <div class="stat-label">Love & Care</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>💌 A Message for Her</h2>
+                <div class="form-group">
+                    <label>Write something meaningful...</label>
+                    <textarea id="messageText" placeholder="Tell her what she means to you..."></textarea>
+                </div>
+                <button class="btn btn-primary" style="width: 100%;" onclick="saveMessage()">💝 Save Message</button>
+                
+                <div id="savedMessage" style="margin-top: 20px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let selectedEmoji = '💫';
+        const questions = [
+            "What's something I did that made you smile recently?",
+            "Where do you see us in 5 years?",
+            "What's your favorite memory with me?",
+            "What do you need from me right now?",
+            "When did you know you liked me?",
+            "What's something you love about our relationship?",
+            "What makes you feel loved most?",
+            "What's a dream you have that involves me?",
+            "How can I be a better partner?",
+            "What makes you feel safe with me?",
+            "What song reminds you of me?",
+            "When was your favorite moment with me?",
+            "What do you appreciate most about me?",
+            "How do you see us growing together?",
+            "What do you want to do together soon?"
+        ];
+
+        let isPlaying = false;
+        const audio = document.getElementById('bgMusic');
+        const musicPlayer = document.getElementById('musicPlayer');
+        const musicIcon = document.getElementById('musicIcon');
+
+        function switchTab(event, tabName) {
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            document.getElementById(tabName).classList.add('active');
+
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            if (event) event.target.classList.add('active');
+            else document.querySelector(`button[onclick*="${tabName}"]`).classList.add('active');
+
+            updateCounts();
+        }
+
+        function toggleMusic() {
+            if (isPlaying) {
+                audio.pause();
+                isPlaying = false;
+                musicPlayer.classList.remove('playing');
+                musicIcon.textContent = '🎵';
+            } else {
+                audio.play().catch(err => console.log('Autoplay prevented'));
+                isPlaying = true;
+                musicPlayer.classList.add('playing');
+                musicIcon.textContent = '🎶';
+            }
+        }
+
+        function selectEmoji(emoji) {
+            selectedEmoji = emoji;
+            document.querySelectorAl
